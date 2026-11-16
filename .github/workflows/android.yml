@@ -48,6 +48,27 @@ jobs:
           test -f restored/LiveTransTRAR/settings.gradle.kts
           test -f restored/LiveTransTRAR/app/build.gradle.kts
 
+      - name: Inspect Kotlin source before patching
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd restored/LiveTransTRAR
+          echo '=== SOURCE FILES ==='
+          find app/src/main/java -type f -name '*.kt' | sort
+          echo '=== GLOSSARY DEFINITIONS ==='
+          grep -R -n -E 'data class GlossaryEntry|class GlossaryEntry|typealias GlossaryEntry' app/src/main/java || true
+          for file in \
+            app/src/main/java/com/livetrans/trar/domain/TranslationEngine.kt \
+            app/src/main/java/com/livetrans/trar/domain/GroqTranslationEngine.kt \
+            app/src/main/java/com/livetrans/trar/domain/MlKitTranslationEngine.kt \
+            app/src/main/java/com/livetrans/trar/domain/LocalWhisperEngine.kt \
+            app/src/main/java/com/livetrans/trar/service/OverlayRenderer.kt \
+            app/src/main/java/com/livetrans/trar/ui/MainScreen.kt \
+            app/build.gradle.kts; do
+            echo "=== $file ==="
+            sed -n '1,280p' "$file"
+          done
+
       - name: Download sherpa-onnx Android library
         shell: bash
         run: |
