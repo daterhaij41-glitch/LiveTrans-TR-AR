@@ -48,9 +48,8 @@ replace("domain/LocalWhisperEngine.kt",
 
 # Ensure outline preferences still work after the transparent subtitle restyle.
 replace("service/OverlayRenderer.kt",
-        "setShadowLayer(5f, 0f, 0f, Color.BLACK)",
-        "if (currentSettings.outlineEnabled) setShadowLayer(5f, 0f, 0f, Color.BLACK)",
-        expected=1)
+        "            setShadowLayer(5f, 0f, 0f, Color.BLACK)",
+        "            if (currentSettings.outlineEnabled) setShadowLayer(5f, 0f, 0f, Color.BLACK)")
 replace("service/OverlayRenderer.kt",
         "        subtitle?.setShadowLayer(5f, 0f, 0f, Color.BLACK)\n        root?.background = null",
         "        if (settings.outlineEnabled) subtitle?.setShadowLayer(5f, 0f, 0f, Color.BLACK) else subtitle?.setShadowLayer(0f, 0f, 0f, Color.TRANSPARENT)\n        root?.background = null")
