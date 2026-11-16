@@ -48,7 +48,10 @@ jobs:
           test -f restored/LiveTransTRAR/settings.gradle.kts
           test -f restored/LiveTransTRAR/app/build.gradle.kts
 
-      - name: Inspect Kotlin source before patching
+      - name: Apply Kotlin compile fixes
+        run: python3 scripts/patch_compile.py restored/LiveTransTRAR
+
+      - name: Inspect Kotlin source after patching
         shell: bash
         run: |
           set -euo pipefail
