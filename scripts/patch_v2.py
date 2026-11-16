@@ -230,6 +230,11 @@ gradle = root / "app/build.gradle.kts"
 g = gradle.read_text(encoding="utf-8")
 g = g.replace("versionCode = 1", "versionCode = 2", 1)
 g = g.replace('versionName = "1.0.0"', 'versionName = "2.0.0"', 1)
+g = g.replace(
+    "        vectorDrawables { useSupportLibrary = true }\\n",
+    "        vectorDrawables { useSupportLibrary = true }\\n        ndk { abiFilters += setOf(\\\"arm64-v8a\\\", \\"armeabi-v7a\\\") }\\n",
+    1
+)
 gradle.write_text(g, encoding="utf-8")
 
 print("LiveTrans 2.0 product patches applied.")
