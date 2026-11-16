@@ -43,6 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           cat source-b64/* | tr -d '[:space:]' | base64 --decode > /tmp/livetrans-source.zip
+          echo '5ace56f249da7c53607077f285f873357b0c5d7fd7ffa53c3b1f099c5d30a4dc  /tmp/livetrans-source.zip' | sha256sum --check
           unzip -q /tmp/livetrans-source.zip -d restored
           test -f restored/LiveTransTRAR/settings.gradle.kts
           test -f restored/LiveTransTRAR/app/build.gradle.kts
