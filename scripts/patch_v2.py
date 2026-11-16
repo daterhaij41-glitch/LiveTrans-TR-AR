@@ -233,7 +233,11 @@ g = g.replace('versionName = "1.0.0"', 'versionName = "2.0.0"', 1)
 needle = '        vectorDrawables { useSupportLibrary = true }'
 if g.count(needle) != 1:
     raise SystemExit("Gradle: cannot find the expected vectorDrawables defaultConfig line")
-g = g.replace(needle, needle + '\\n        ndk { abiFilters += setOf("arm64-v8a", "armeabi-v7a") }', 1)
+g = g.replace(
+    needle,
+    needle + chr(10) + '        ndk { abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a")) }',
+    1
+)
 gradle.write_text(g, encoding="utf-8")
 
 print("LiveTrans 2.0 product patches applied.")
