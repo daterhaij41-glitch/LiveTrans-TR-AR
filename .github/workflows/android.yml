@@ -51,30 +51,8 @@ jobs:
       - name: Apply Kotlin compile fixes
         run: python3 scripts/patch_compile.py restored/LiveTransTRAR
 
-      - name: Inspect application modules for architectural upgrade
-        shell: bash
-        run: |
-          set -euo pipefail
-          cd restored/LiveTransTRAR
-          for file in \
-            app/src/main/java/com/livetrans/trar/domain/GroqAsrEngine.kt \
-            app/src/main/java/com/livetrans/trar/domain/HybridPipeline.kt \
-            app/src/main/java/com/livetrans/trar/domain/SegmentManager.kt \
-            app/src/main/java/com/livetrans/trar/audio/AudioCapture.kt \
-            app/src/main/java/com/livetrans/trar/audio/FloatRingBuffer.kt \
-            app/src/main/java/com/livetrans/trar/data/AppSettings.kt \
-            app/src/main/java/com/livetrans/trar/data/LiveBus.kt \
-            app/src/main/java/com/livetrans/trar/service/TranscriptionService.kt \
-            app/src/main/java/com/livetrans/trar/MainActivity.kt \
-            app/src/main/AndroidManifest.xml \
-            app/build.gradle.kts; do
-            echo "=== $file ==="
-            sed -n '1,260p' "$file"
-          done
-          echo "=== RESOURCE TREE ==="
-          find app/src/main/res -maxdepth 3 -type f | sort
-          echo "=== MAIN SCREEN CONTINUATION ==="
-          sed -n '1,520p' app/src/main/java/com/livetrans/trar/ui/MainScreen.kt
+      - name: Apply LiveTrans 2.0 product upgrade
+        run: python3 scripts/patch_v2.py restored/LiveTransTRAR
 
       - name: Download sherpa-onnx Android library
         shell: bash
