@@ -158,7 +158,7 @@ wrap_region("ui/MainScreen.kt", history_start, note_start, 2)
 # Remove an obsolete opacity slider because the cinema subtitle now has no opaque panel.
 src = screen.read_text(encoding="utf-8")
 src, count = re.subn(
-    r'                    Text\("شفافية خلفية الترجمة: [^\n]*"\)\n                    Slider\(value = settings\.backgroundOpacity[^\n]*\n',
+    r' *Text\("شفافية خلفية الترجمة: [^\n]*"\)\n *Slider\(value = settings\.backgroundOpacity[^\n]*\n',
     '                    Text("نمط الترجمة: نص أبيض عريض بظل أسود، من دون صندوق يحجب الصورة.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)\n',
     src, count=1
 )
