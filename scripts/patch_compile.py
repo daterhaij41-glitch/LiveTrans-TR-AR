@@ -27,6 +27,9 @@ replace("domain/MlKitTranslationEngine.kt",
         "package com.livetrans.trar.domain\n",
         "package com.livetrans.trar.domain\n\nimport com.livetrans.trar.data.GlossaryEntry\n")
 replace("domain/LocalWhisperEngine.kt",
+        'language = "",',
+        'language = "tr",')
+replace("domain/LocalWhisperEngine.kt",
         "FeatureConfig(sampleRate = 16000f, featureDim = 80)",
         "FeatureConfig(sampleRate = 16000, featureDim = 80)")
 replace("domain/LocalWhisperEngine.kt",
@@ -36,4 +39,8 @@ replace("service/OverlayRenderer.kt",
         "setStroke(dp(1), 0x557FFFFFFF)",
         "setStroke(dp(1), 0x557FFFFFFF.toInt())",
         expected=2)
-print("All compile patches applied.")
+replace("domain/GroqTranslationEngine.kt",
+        'append("Do not censor, explain, summarize, or add commentary. Keep names consistent. ")',
+        'append("Translate Turkish dialogue into natural Arabic, preserving intent, emotion, idioms, relationships, and speaker tone. Do not translate word-for-word when that sounds unnatural. Do not censor, explain, summarize, or add commentary. Keep character names and recurring terms consistent. If a phrase is incomplete, translate only what is clearly heard; never invent missing words. ")')
+
+print("All compile and Turkish-first quality patches applied.")
