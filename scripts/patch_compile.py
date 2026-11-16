@@ -44,3 +44,33 @@ replace("domain/GroqTranslationEngine.kt",
         'append("Translate Turkish dialogue into natural Arabic, preserving intent, emotion, idioms, relationships, and speaker tone. Do not translate word-for-word when that sounds unnatural. Do not censor, explain, summarize, or add commentary. Keep character names and recurring terms consistent. If a phrase is incomplete, translate only what is clearly heard; never invent missing words. ")')
 
 print("All compile and Turkish-first quality patches applied.")
+
+# Subtitle look: clean, centered cinema-style Arabic text with no opaque card.
+replace("service/OverlayRenderer.kt",
+        "container.setPadding(dp(14), dp(8), dp(14), dp(8))",
+        "container.setPadding(dp(8), dp(4), dp(8), dp(4))")
+replace("service/OverlayRenderer.kt",
+        'typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)',
+        'typeface = Typeface.create("sans-serif", Typeface.BOLD)')
+replace("service/OverlayRenderer.kt",
+        "if (currentSettings.outlineEnabled) setShadowLayer(3f, 1f, 2f, Color.BLACK)",
+        "setShadowLayer(5f, 0f, 0f, Color.BLACK)")
+replace("service/OverlayRenderer.kt",
+        "            addView(badge, android.widget.LinearLayout.LayoutParams(-2, -2))",
+        "            badge.visibility = View.GONE")
+replace("service/OverlayRenderer.kt",
+        """        container.background = GradientDrawable().apply {
+            setColor(Color.argb((currentSettings.backgroundOpacity * 255).toInt(), 10, 16, 21))
+            cornerRadius = dp(14).toFloat()
+            setStroke(dp(1), 0x557FFFFFFF.toInt())
+        }""",
+        "        container.background = null")
+replace("service/OverlayRenderer.kt",
+        """        if (settings.outlineEnabled) subtitle?.setShadowLayer(3f, 1f, 2f, Color.BLACK) else subtitle?.setShadowLayer(0f, 0f, 0f, Color.TRANSPARENT)
+        root?.background = GradientDrawable().apply {
+            setColor(Color.argb((settings.backgroundOpacity * 255).toInt(), 10, 16, 21))
+            cornerRadius = dp(14).toFloat()
+            setStroke(dp(1), 0x557FFFFFFF.toInt())
+        }""",
+        """        subtitle?.setShadowLayer(5f, 0f, 0f, Color.BLACK)
+        root?.background = null""")
